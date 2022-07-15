@@ -1,0 +1,20 @@
+name: storytelling_repository
+description: Sharing new stories the same we've always told them
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ipfs_client_flutter: ^1.0.7
+  # flutter_ipfs: ^0.0.2
+  ffmpeg_kit_flutter: ^4.5.1
+  path_provider: ^2.0.11
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^2.4.0

@@ -7,7 +7,13 @@
 
 import 'package:relive_web3/app/app.dart';
 import 'package:relive_web3/bootstrap.dart';
+import 'package:storytelling_repository/storytelling_repository.dart';
 
 void main() {
-  bootstrap(() => const App());
+  const storytellingRepository = StorytellingRepository();
+  bootstrap(
+    () => const App(
+      storytellingRepository: storytellingRepository,
+    ),
+  );
 }

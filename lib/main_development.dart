@@ -7,13 +7,17 @@
 
 import 'package:relive_web3/app/app.dart';
 import 'package:relive_web3/bootstrap.dart';
-import 'package:storytelling_repository/storytelling_repository.dart';
+import 'package:stories_repository/stories_repository.dart';
+import 'package:local_storage_stories_api/local_storage_stories_api.dart';
 
-void main() {
-  const storytellingRepository = StorytellingRepository();
-  bootstrap(
-    () => const App(
-      storytellingRepository: storytellingRepository,
+void main() async {
+  final storiesApi = LocalStorageStoriesApi(
+    plugin: await SharedPreferences.getInstance(),
+  );
+  final storiesRepository = StoriesRepository(storiesApi: storiesApi);
+  await bootstrap(
+    () => App(
+      storiesRepository: storiesRepository,
     ),
   );
 }

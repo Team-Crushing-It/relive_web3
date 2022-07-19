@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relive_web3/tell_story/tell_story.dart';
-import 'package:storytelling_repository/storytelling_repository.dart';
+import 'package:stories_repository/stories_repository.dart';
 
 
 class TellStoryPage extends StatelessWidget {
@@ -25,7 +25,7 @@ class TellStoryPage extends StatelessWidget {
                   padding: const EdgeInsets.all(36),
                   child: BlocProvider(
                     create: (_) =>
-                        TellStoryCubit(context.read<StorytellingRepository>()),
+                        TellStoryCubit(context.read<StoriesRepository>()),
                     child: const TellStoryView(),
                   ),
                 ),

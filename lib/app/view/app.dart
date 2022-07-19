@@ -3,21 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:relive_web3/home/home.dart';
 import 'package:relive_web3/l10n/l10n.dart';
-import 'package:storytelling_repository/storytelling_repository.dart';
+import 'package:stories_repository/stories_repository.dart';
 
 class App extends StatelessWidget {
   const App({
     Key? key,
-    required StorytellingRepository storytellingRepository,
-  })  : _storytellingRepository = storytellingRepository,
+    required StoriesRepository storiesRepository,
+  })  : _storiesRepository = storiesRepository,
         super(key: key);
 
-  final StorytellingRepository _storytellingRepository;
+  final StoriesRepository _storiesRepository;
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
-      value: _storytellingRepository,
+      value: _storiesRepository,
       child: const AppView(),
     );
   }

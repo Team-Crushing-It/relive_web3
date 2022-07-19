@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:relive_web3/home/home.dart';
-import 'package:storytelling_repository/storytelling_repository.dart';
+import 'package:stories_repository/stories_repository.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.all(36),
                   child: BlocProvider(
                     create: (_) => HomeCubit(
-                      context.read<StorytellingRepository>(),
+                      context.read<StoriesRepository>(),
                     ),
                     child: const HomeView(),
                   ),

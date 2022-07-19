@@ -1,18 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:storytelling_repository/storytelling_repository.dart';
+import 'package:stories_repository/stories_repository.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this._repository) : super(const HomeState());
 
-  final StorytellingRepository _repository;
+  final StoriesRepository _repository;
 
   Future<void> ffmpegTest() async {
-    final output = await _repository.getVids();
+    final output =  _repository.getStories();
 
-    emit(state.copyWith(videos: output));
+    // emit(state.copyWith(videos: output));
 
     return;
   }

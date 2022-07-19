@@ -10,9 +10,9 @@ class HomeCubit extends Cubit<HomeState> {
   final StorytellingRepository _repository;
 
   Future<void> ffmpegTest() async {
-    final output = await _repository.test();
+    final output = await _repository.getVids();
 
-    emit(state.copyWith(message: output));
+    emit(state.copyWith(videos: output));
 
     return;
   }

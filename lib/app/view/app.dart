@@ -1,14 +1,6 @@
-// Copyright (c) 2022, Very Good Ventures
-// https://verygood.ventures
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:relive_web3/counter/counter.dart';
 import 'package:relive_web3/home/home.dart';
 import 'package:relive_web3/l10n/l10n.dart';
 import 'package:storytelling_repository/storytelling_repository.dart';

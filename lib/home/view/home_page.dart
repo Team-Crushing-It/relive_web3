@@ -6,7 +6,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:relive_web3/home/home.dart';
 import 'package:storytelling_repository/storytelling_repository.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -26,8 +25,9 @@ class HomePage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(36),
                   child: BlocProvider(
-                    create: (_) =>
-                        HomeCubit(context.read<StorytellingRepository>()),
+                    create: (_) => HomeCubit(
+                      context.read<StorytellingRepository>(),
+                    ),
                     child: const HomeView(),
                   ),
                 ),
@@ -40,36 +40,32 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  Future<Directory?>? _appDocumentsDirectory;
-
-  void _requestAppDocumentsDirectory() {
-    setState(() {
-      _appDocumentsDirectory = getApplicationDocumentsDirectory();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final test = context.watch<HomeCubit>().state.message;
+    // final vids = context.watch<HomeCubit>().state.videos;
     return Scaffold(
-        body: Column(
-      children: [
-        Text(test),
-        TextButton(
-          onPressed: () {
-            context.read<HomeCubit>().ffmpegTest();
-          },
-          child: Text("TEXT BUTTON"),
-        )
-      ],
-    ));
+      body: Column(
+        children: [
+          // Text(test),
+          TextButton(
+            onPressed: () {
+              context.read<HomeCubit>().ffmpegTest();
+            },
+            child: Text('TEXT BUTTON'),
+          ),
+          // ListView.builder(
+          //   itemCount: vids.length,
+          //   itemBuilder: (context, index) {
+          //     return ListTile(
+          //       title: Text(vids[index]),
+          //     );
+          //   },
+          // )
+        ],
+      ),
+    );
   }
 }

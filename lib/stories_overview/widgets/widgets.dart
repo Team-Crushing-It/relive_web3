@@ -1,1 +1,1 @@
-export 'story_list_tile.dart';
+export 'story_tile.dart';

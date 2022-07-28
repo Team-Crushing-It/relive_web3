@@ -8,27 +8,27 @@ import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
-part 'vid.g.dart';
+part 'story.g.dart';
 
 @immutable
 @JsonSerializable(explicitToJson: true)
-class Vid extends Equatable {
+class Story extends Equatable {
   final String? id;
   final List<String>? tags;
   final File? file;
 
-  const Vid({
+  const Story({
     this.id,
     this.tags,
     this.file,
   });
 
-  Vid copyWith({
+  Story copyWith({
     String? id,
     List<String>? tags,
     File? file,
   }) {
-    return Vid(
+    return Story(
       id: id ?? this.id,
       tags: tags ?? this.tags,
       file: file ?? this.file,
@@ -37,21 +37,21 @@ class Vid extends Equatable {
 
   @override
   String toString() {
-    return 'Vid{id: $id, tags: $tags,}';
+    return 'Story{id: $id, tags: $tags,}';
   }
 
-  /// Empty Vid which represents an empty video.
-  static var empty = Vid(
+  /// Empty Story which represents an empty story.
+  static var empty = Story(
     id: '',
     tags: [],
     file: File('empty'),
   );
 
-  /// Convenience getter to determine whether the video is empty.
-  bool get isEmpty => this == Vid.empty;
+  /// Convenience getter to determine whether the story is empty.
+  bool get isEmpty => this == Story.empty;
 
-  /// Convenience getter to determine whether the video is not empty.
-  bool get isNotEmpty => this != Vid.empty;
+  /// Convenience getter to determine whether the story is not empty.
+  bool get isNotEmpty => this != Story.empty;
 
   @override
   List<Object?> get props => [
@@ -59,7 +59,7 @@ class Vid extends Equatable {
         tags,
       ];
 
-  factory Vid.fromJson(Map<String, dynamic> json) => _$VidFromJson(json);
+  factory Story.fromJson(Map<String, dynamic> json) => _$StoryFromJson(json);
 
-  Map<String, dynamic> toJson() => _$VidToJson(this);
+  Map<String, dynamic> toJson() => _$StoryToJson(this);
 }

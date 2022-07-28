@@ -1,27 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_todos/edit_todo/view/edit_todo_page.dart';
-import 'package:flutter_todos/l10n/l10n.dart';
-import 'package:flutter_todos/todos_overview/todos_overview.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:relive_web3/edit_story/view/edit_story_page.dart';
+import 'package:relive_web3/l10n/l10n.dart';
+import 'package:relive_web3/stories_overview/stories_overview.dart';
+import 'package:stories_repository/stories_repository.dart';
 
-class TodosOverviewPage extends StatelessWidget {
-  const TodosOverviewPage({Key? key}) : super(key: key);
+class StoriesOverviewPage extends StatelessWidget {
+  const StoriesOverviewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TodosOverviewBloc(
-        todosRepository: context.read<TodosRepository>(),
-      )..add(const TodosOverviewSubscriptionRequested()),
-      child: const TodosOverviewView(),
+      create: (context) => StoriesOverviewBloc(
+        storiesRepository: context.read<StoriesRepository>(),
+      )..add(const StoriesOverviewSubscriptionRequested()),
+      child: const StoriesOverviewView(),
     );
   }
 }
 
-class TodosOverviewView extends StatelessWidget {
-  const TodosOverviewView({Key? key}) : super(key: key);
+class StoriesOverviewView extends StatelessWidget {
+  const StoriesOverviewView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,52 +29,52 @@ class TodosOverviewView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.todosOverviewAppBarTitle),
-        actions: const [
-          TodosOverviewFilterButton(),
-          TodosOverviewOptionsButton(),
-        ],
+        title: Text(l10n.storiesOverviewAppBarTitle),
+        // actions: const [
+        //   StoriesOverviewFilterButton(),
+        //   StoriesOverviewOptionsButton(),
+        // ],
       ),
       body: MultiBlocListener(
         listeners: [
-          BlocListener<TodosOverviewBloc, TodosOverviewState>(
+          BlocListener<StoriesOverviewBloc, StoriesOverviewState>(
             listenWhen: (previous, current) =>
                 previous.status != current.status,
             listener: (context, state) {
-              if (state.status == TodosOverviewStatus.failure) {
+              if (state.status == StoriesOverviewStatus.failure) {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(
                     SnackBar(
-                      content: Text(l10n.todosOverviewErrorSnackbarText),
+                      content: Text(l10n.storiesOverviewErrorSnackbarText),
                     ),
                   );
               }
             },
           ),
-          BlocListener<TodosOverviewBloc, TodosOverviewState>(
+          BlocListener<StoriesOverviewBloc, StoriesOverviewState>(
             listenWhen: (previous, current) =>
-                previous.lastDeletedTodo != current.lastDeletedTodo &&
-                current.lastDeletedTodo != null,
+                previous.lastDeletedStory != current.lastDeletedStory &&
+                current.lastDeletedStory != null,
             listener: (context, state) {
-              final deletedTodo = state.lastDeletedTodo!;
+              final deletedStory = state.lastDeletedStory!;
               final messenger = ScaffoldMessenger.of(context);
               messenger
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   SnackBar(
                     content: Text(
-                      l10n.todosOverviewTodoDeletedSnackbarText(
-                        deletedTodo.title,
+                      l10n.storiesOverviewStoryDeletedSnackbarText(
+                        deletedStory.id!,
                       ),
                     ),
                     action: SnackBarAction(
-                      label: l10n.todosOverviewUndoDeletionButtonText,
+                      label: l10n.storiesOverviewUndoDeletionButtonText,
                       onPressed: () {
                         messenger.hideCurrentSnackBar();
                         context
-                            .read<TodosOverviewBloc>()
-                            .add(const TodosOverviewUndoDeletionRequested());
+                            .read<StoriesOverviewBloc>()
+                            .add(const StoriesOverviewUndoDeletionRequested());
                       },
                     ),
                   ),
@@ -82,17 +82,17 @@ class TodosOverviewView extends StatelessWidget {
             },
           ),
         ],
-        child: BlocBuilder<TodosOverviewBloc, TodosOverviewState>(
+        child: BlocBuilder<StoriesOverviewBloc, StoriesOverviewState>(
           builder: (context, state) {
-            if (state.todos.isEmpty) {
-              if (state.status == TodosOverviewStatus.loading) {
+            if (state.stories.isEmpty) {
+              if (state.status == StoriesOverviewStatus.loading) {
                 return const Center(child: CupertinoActivityIndicator());
-              } else if (state.status != TodosOverviewStatus.success) {
+              } else if (state.status != StoriesOverviewStatus.success) {
                 return const SizedBox();
               } else {
                 return Center(
                   child: Text(
-                    l10n.todosOverviewEmptyText,
+                    l10n.storiesOverviewEmptyText,
                     style: Theme.of(context).textTheme.caption,
                   ),
                 );
@@ -100,27 +100,17 @@ class TodosOverviewView extends StatelessWidget {
             }
 
             return CupertinoScrollbar(
-              child: ListView(
+              child: GridView(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                ),
                 children: [
-                  for (final todo in state.filteredTodos)
-                    TodoListTile(
-                      todo: todo,
-                      onToggleCompleted: (isCompleted) {
-                        context.read<TodosOverviewBloc>().add(
-                              TodosOverviewTodoCompletionToggled(
-                                todo: todo,
-                                isCompleted: isCompleted,
-                              ),
-                            );
-                      },
-                      onDismissed: (_) {
-                        context
-                            .read<TodosOverviewBloc>()
-                            .add(TodosOverviewTodoDeleted(todo));
-                      },
+                  for (final story in state.filteredStories)
+                    StoryTile(
+                      story: story,
                       onTap: () {
                         Navigator.of(context).push(
-                          EditTodoPage.route(initialTodo: todo),
+                          EditStoryPage.route(initialStory: story),
                         );
                       },
                     ),

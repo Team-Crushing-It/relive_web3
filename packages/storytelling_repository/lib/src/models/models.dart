@@ -1,1 +1,1 @@
-export 'vid.dart';
+export 'story.dart';

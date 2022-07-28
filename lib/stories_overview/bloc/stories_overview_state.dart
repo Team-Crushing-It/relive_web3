@@ -1,42 +1,42 @@
-part of 'todos_overview_bloc.dart';
+part of 'stories_overview_bloc.dart';
 
-enum TodosOverviewStatus { initial, loading, success, failure }
+enum StoriesOverviewStatus { initial, loading, success, failure }
 
-class TodosOverviewState extends Equatable {
-  const TodosOverviewState({
-    this.status = TodosOverviewStatus.initial,
-    this.todos = const [],
-    this.filter = TodosViewFilter.all,
-    this.lastDeletedTodo,
+class StoriesOverviewState extends Equatable {
+  const StoriesOverviewState({
+    this.status = StoriesOverviewStatus.initial,
+    this.stories = const [],
+    this.filter = StoriesViewFilter.all,
+    this.lastDeletedStory,
   });
 
-  final TodosOverviewStatus status;
-  final List<Todo> todos;
-  final TodosViewFilter filter;
-  final Todo? lastDeletedTodo;
+  final StoriesOverviewStatus status;
+  final List<Story> stories;
+  final StoriesViewFilter filter;
+  final Story? lastDeletedStory;
 
-  Iterable<Todo> get filteredTodos => filter.applyAll(todos);
+  Iterable<Story> get filteredStories => filter.applyAll(stories);
 
-  TodosOverviewState copyWith({
-    TodosOverviewStatus Function()? status,
-    List<Todo> Function()? todos,
-    TodosViewFilter Function()? filter,
-    Todo? Function()? lastDeletedTodo,
+  StoriesOverviewState copyWith({
+    StoriesOverviewStatus Function()? status,
+    List<Story> Function()? stories,
+    StoriesViewFilter Function()? filter,
+    Story? Function()? lastDeletedStory,
   }) {
-    return TodosOverviewState(
+    return StoriesOverviewState(
       status: status != null ? status() : this.status,
-      todos: todos != null ? todos() : this.todos,
+      stories: stories != null ? stories() : this.stories,
       filter: filter != null ? filter() : this.filter,
-      lastDeletedTodo:
-          lastDeletedTodo != null ? lastDeletedTodo() : this.lastDeletedTodo,
+      lastDeletedStory:
+          lastDeletedStory != null ? lastDeletedStory() : this.lastDeletedStory,
     );
   }
 
   @override
   List<Object?> get props => [
         status,
-        todos,
+        stories,
         filter,
-        lastDeletedTodo,
+        lastDeletedStory,
       ];
 }

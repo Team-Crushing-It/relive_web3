@@ -1,24 +1,14 @@
 part of 'home_cubit.dart';
 
+enum CurrentHomePage { capture, overview, tell }
+
 class HomeState extends Equatable {
   const HomeState({
-    this.message = '',
-    this.videos = const [],
+    this.page = CurrentHomePage.overview,
   });
 
-  final List<String> videos;
-  final String message;
+  final CurrentHomePage page;
 
   @override
-  List<Object> get props => [videos, message];
-
-  HomeState copyWith({
-    List<String>? videos,
-    String? message,
-  }) {
-    return HomeState(
-      videos: videos ?? this.videos,
-      message: message ?? this.message,
-    );
-  }
+  List<Object> get props => [page];
 }

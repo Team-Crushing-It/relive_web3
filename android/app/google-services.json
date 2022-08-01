@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "713602982924",
+    "project_id": "relive-web3",
+    "storage_bucket": "relive-web3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713602982924:android:10313c8c14f384eca0ba29",
+        "android_client_info": {
+          "package_name": "com.example.verygoodcore.relive_web3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713602982924-dlj8gepkg72d4vfo5iue6o7gfk1eh2kc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_JS3Plbx7a2c7NN8B11AgJdWM67FFRtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713602982924-dlj8gepkg72d4vfo5iue6o7gfk1eh2kc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

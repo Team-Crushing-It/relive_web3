@@ -7,7 +7,12 @@ import 'package:relive_web3/stories_overview/stories_overview.dart';
 import 'package:stories_repository/stories_repository.dart';
 
 class StoriesOverviewPage extends StatelessWidget {
-  const StoriesOverviewPage({Key? key}) : super(key: key);
+  const StoriesOverviewPage._();
+
+  static Page page() => const MaterialPage<void>(
+        key: ValueKey('stories_oveview_page'),
+        child: StoriesOverviewPage._(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +97,7 @@ class StoriesOverviewView extends StatelessWidget {
               } else {
                 return Center(
                   child: Text(
-                    l10n.storiesOverviewEmptyText,
+                    'Is this',
                     style: Theme.of(context).textTheme.caption,
                   ),
                 );

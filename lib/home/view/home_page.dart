@@ -7,10 +7,10 @@ import 'package:relive_web3/stories_overview/stories_overview.dart';
 import 'package:relive_web3/tell_story/tell_story.dart';
 
 List<Page> onGenerateHomePages(
-  CurrentHomePage page,
+  HomeState state,
   List<Page<dynamic>> pages,
 ) {
-  if (page == CurrentHomePage.overview) {
+  if (state.page == CurrentHomePage.overview) {
     return [StoriesOverviewPage.page()];
   }
 
@@ -18,11 +18,11 @@ List<Page> onGenerateHomePages(
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage._();
+   const HomePage({Key? key}) : super(key: key);
 
   static Page page() => const MaterialPage<void>(
         key: ValueKey('home_page'),
-        child: HomePage._(),
+        child: HomePage(),
       );
 
   @override
@@ -42,8 +42,8 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: FlowBuilder(
         onGeneratePages: onGenerateHomePages,
-        state: context.select<HomeCubit, CurrentHomePage>(
-          (cubit) => cubit.state.page,
+        state: context.select<HomeCubit, HomeState>(
+          (cubit) => cubit.state,
         ),
       ),
     );

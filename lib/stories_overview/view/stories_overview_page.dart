@@ -33,6 +33,13 @@ class StoriesOverviewView extends StatelessWidget {
     final l10n = context.l10n;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: Text(l10n.storiesOverviewAppBarTitle),
         // actions: const [
@@ -97,7 +104,7 @@ class StoriesOverviewView extends StatelessWidget {
               } else {
                 return Center(
                   child: Text(
-                    'Is this',
+                    l10n.storiesOverviewEmptyText,
                     style: Theme.of(context).textTheme.caption,
                   ),
                 );

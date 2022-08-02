@@ -6,6 +6,7 @@ import 'package:relive_web3/app/bloc/app_bloc.dart';
 import 'package:relive_web3/home/view/home_page.dart';
 import 'package:relive_web3/l10n/l10n.dart';
 import 'package:relive_web3/login/login.dart';
+import 'package:relive_web3/stories_overview/stories_overview.dart';
 import 'package:stories_repository/stories_repository.dart';
 
 List<Page> onGenerateAppViewPages(AppStatus state, List<Page<dynamic>> pages) {

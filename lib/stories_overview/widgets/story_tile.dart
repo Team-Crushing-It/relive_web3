@@ -15,6 +15,10 @@ class StoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return const SizedBox(height: 50, width: 50);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+          color: Colors.black, child: const SizedBox(height: 50, width: 50)),
+    );
   }
 }

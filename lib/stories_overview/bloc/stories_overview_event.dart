@@ -11,6 +11,11 @@ class StoriesOverviewSubscriptionRequested extends StoriesOverviewEvent {
   const StoriesOverviewSubscriptionRequested();
 }
 
+
+class StoriesOverviewAdd extends StoriesOverviewEvent {
+  const StoriesOverviewAdd();
+}
+
 class StoriesOverviewStoryCompletionToggled extends StoriesOverviewEvent {
   const StoriesOverviewStoryCompletionToggled({
     required this.story,

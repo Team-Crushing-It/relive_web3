@@ -35,7 +35,7 @@ class StoriesOverviewView extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here!
+          context.read<StoriesOverviewBloc>().add(const StoriesOverviewAdd());
         },
         backgroundColor: Colors.blue,
         child: const Icon(Icons.add),

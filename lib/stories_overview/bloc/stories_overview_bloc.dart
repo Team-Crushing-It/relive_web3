@@ -16,6 +16,7 @@ class StoriesOverviewBloc
     on<StoriesOverviewStoryDeleted>(_onStoryDeleted);
     on<StoriesOverviewUndoDeletionRequested>(_onUndoDeletionRequested);
     on<StoriesOverviewFilterChanged>(_onFilterChanged);
+    on<StoriesOverviewAdd>(_add);
   }
 
   final StoriesRepository _storiesRepository;
@@ -65,5 +66,12 @@ class StoriesOverviewBloc
     Emitter<StoriesOverviewState> emit,
   ) {
     emit(state.copyWith(filter: () => event.filter));
+  }
+
+  void _add(
+    StoriesOverviewAdd event,
+    Emitter<StoriesOverviewState> emit,
+  ) {
+    _storiesRepository.saveStory(Story(id: DateTime.now().toString()));
   }
 }

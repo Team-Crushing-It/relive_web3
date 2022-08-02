@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:relive_web3/capture_story/capture_story.dart';
 import 'package:relive_web3/home/home.dart';
-import 'package:relive_web3/l10n/l10n.dart';
-import 'package:relive_web3/tell_story/tell_story.dart';
 import 'package:stories_repository/stories_repository.dart';
 
-class TellStoryPage extends StatelessWidget {
-  const TellStoryPage._();
+class CaptureStoryPage extends StatelessWidget {
+  const CaptureStoryPage._();
 
-  static Page page() => const MaterialPage<void>(
+  static Page page() => const SlideRightPage<void>(
         key: ValueKey('capture_oveview_page'),
-        child: TellStoryPage._(),
+        child: CaptureStoryPage._(),
       );
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.storiesOverviewAppBarTitle),
+        title: const Text('Test'),
+        centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.ac_unit),
+            icon: const Icon(Icons.abc_outlined),
             onPressed: () =>
                 {context.read<HomeCubit>().setPage(CurrentHomePage.overview)},
           ),
@@ -40,8 +39,8 @@ class TellStoryPage extends StatelessWidget {
                   padding: const EdgeInsets.all(36),
                   child: BlocProvider(
                     create: (_) =>
-                        TellStoryCubit(context.read<StoriesRepository>()),
-                    child: const TellStoryView(),
+                        CaptureStoryCubit(context.read<StoriesRepository>()),
+                    child: const CaptureStoryView(),
                   ),
                 ),
               ),
@@ -53,8 +52,8 @@ class TellStoryPage extends StatelessWidget {
   }
 }
 
-class TellStoryView extends StatelessWidget {
-  const TellStoryView({Key? key}) : super(key: key);
+class CaptureStoryView extends StatelessWidget {
+  const CaptureStoryView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:relive_web3/capture_story/capture_story.dart';
 import 'package:relive_web3/edit_story/view/edit_story_page.dart';
+import 'package:relive_web3/home/home.dart';
 import 'package:relive_web3/l10n/l10n.dart';
 import 'package:relive_web3/stories_overview/stories_overview.dart';
 import 'package:stories_repository/stories_repository.dart';
@@ -9,7 +11,7 @@ import 'package:stories_repository/stories_repository.dart';
 class StoriesOverviewPage extends StatelessWidget {
   const StoriesOverviewPage._();
 
-  static Page page() => const MaterialPage<void>(
+  static Page page() => const FadePage<void>(
         key: ValueKey('stories_oveview_page'),
         child: StoriesOverviewPage._(),
       );
@@ -33,19 +35,24 @@ class StoriesOverviewView extends StatelessWidget {
     final l10n = context.l10n;
 
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.read<StoriesOverviewBloc>().add(const StoriesOverviewAdd());
+          context.read<HomeCubit>().setPage(CurrentHomePage.capture);
         },
         backgroundColor: Colors.blue,
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
         title: Text(l10n.storiesOverviewAppBarTitle),
-        // actions: const [
-        //   StoriesOverviewFilterButton(),
-        //   StoriesOverviewOptionsButton(),
-        // ],
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.ac_unit),
+            onPressed: () => {
+              context.read<HomeCubit>().setPage(CurrentHomePage.tell)
+            },
+          ),
+        ],
       ),
       body: MultiBlocListener(
         listeners: [
@@ -121,6 +128,7 @@ class StoriesOverviewView extends StatelessWidget {
                     StoryTile(
                       story: story,
                       onTap: () {
+                        print('tapped');
                         Navigator.of(context).push(
                           EditStoryPage.route(initialStory: story),
                         );

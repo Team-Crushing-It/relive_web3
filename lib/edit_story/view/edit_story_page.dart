@@ -95,7 +95,7 @@ class _TagsList extends StatelessWidget {
 
     final state = context.watch<EditStoryBloc>().state;
     final hintText = state.initialStory?.tags ?? '';
-    return Container();
+    return Text(state.initialStory!.id!);
 
     // return TextFormField(
     //   key: const Key('editStoryView_tags_textFormList'),

@@ -1,6 +1,7 @@
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:relive_web3/capture_story/capture_story.dart';
 import 'package:relive_web3/edit_story/edit_story.dart';
 import 'package:relive_web3/home/home.dart';
 import 'package:relive_web3/stories_overview/stories_overview.dart';
@@ -13,12 +14,18 @@ List<Page> onGenerateHomePages(
   if (state.page == CurrentHomePage.overview) {
     return [StoriesOverviewPage.page()];
   }
+  if (state.page == CurrentHomePage.capture) {
+    return [CaptureStoryPage.page()];
+  }
+   if (state.page == CurrentHomePage.tell) {
+    return [TellStoryPage.page()];
+  }
 
   return pages;
 }
 
 class HomePage extends StatelessWidget {
-   const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   static Page page() => const MaterialPage<void>(
         key: ValueKey('home_page'),

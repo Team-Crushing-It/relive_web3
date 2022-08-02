@@ -15,10 +15,13 @@ class StoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-          color: Colors.black, child: const SizedBox(height: 50, width: 50)),
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+            color: Colors.black, child: const SizedBox(height: 50, width: 50)),
+      ),
     );
   }
 }

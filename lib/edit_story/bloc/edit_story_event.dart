@@ -8,13 +8,13 @@ abstract class EditStoryEvent extends Equatable {
 }
 
 
-class EditStoryTagsChanged extends EditStoryEvent {
-  const EditStoryTagsChanged(this.tags);
+class EditStoryTagAdded extends EditStoryEvent {
+  const EditStoryTagAdded(this.tag);
 
-  final List<String> tags;
+  final String tag;
 
   @override
-  List<Object> get props => [tags];
+  List<Object> get props => [tag];
 }
 
 class EditStorySubmitted extends EditStoryEvent {

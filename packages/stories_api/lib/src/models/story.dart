@@ -13,24 +13,24 @@ part 'story.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Story extends Equatable {
   final String? id;
-  final List<String>? tags;
-  final File? file;
+  final List<String> tags;
+  // final File? file;
 
   const Story({
     this.id,
-    this.tags,
-    this.file,
+    this.tags = const [],
+    // this.file,
   });
 
   Story copyWith({
     String? id,
     List<String>? tags,
-    File? file,
+    // File? file,
   }) {
     return Story(
       id: id ?? this.id,
       tags: tags ?? this.tags,
-      file: file ?? this.file,
+      // file: file ?? this.file,
     );
   }
 
@@ -43,7 +43,7 @@ class Story extends Equatable {
   static var empty = Story(
     id: '',
     tags: [],
-    file: File('empty'),
+    // file: File('empty'),
   );
 
   /// Convenience getter to determine whether the story is empty.

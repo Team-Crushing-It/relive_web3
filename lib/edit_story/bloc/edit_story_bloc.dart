@@ -14,7 +14,6 @@ class EditStoryBloc extends Bloc<EditStoryEvent, EditStoryState> {
           EditStoryState(
             initialStory: initialStory,
             id: initialStory?.id ?? '',
-            tags: initialStory?.tags ?? [],
           ),
         ) {
     on<EditStoryTagAdded>(_onTagAdded);
@@ -35,13 +34,14 @@ class EditStoryBloc extends Bloc<EditStoryEvent, EditStoryState> {
     Emitter<EditStoryState> emit,
   ) async {
     emit(state.copyWith(status: EditStoryStatus.loading));
-    final outputTags = state.initialStory!.tags.map((e) => e).toList();
-    outputTags.add(state.newTag);
+    final outputTags = state.initialStory!.tags.map((e) => e).toList()
+      ..add(state.newTag);
     final story = state.initialStory!.copyWith(tags: outputTags);
 
     try {
       await _storiesRepository.saveStory(story);
-      emit(state.copyWith(status: EditStoryStatus.success, initialStory: story));
+      emit(
+          state.copyWith(status: EditStoryStatus.success, initialStory: story));
     } catch (e) {
       emit(state.copyWith(status: EditStoryStatus.failure));
     }

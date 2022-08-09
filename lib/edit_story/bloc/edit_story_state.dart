@@ -14,14 +14,14 @@ class EditStoryState extends Equatable {
     this.status = EditStoryStatus.initial,
     this.initialStory,
     this.id = '',
-    this.tags = const <String>[],
+    // this.tags = const <String>[],
     this.newTag = '',
   });
 
   final EditStoryStatus status;
   final Story? initialStory;
   final String id;
-  final List<String> tags;
+  // final List<String> tags;
   final String newTag;
 
   bool get isNewStory => initialStory == null;
@@ -30,18 +30,18 @@ class EditStoryState extends Equatable {
     EditStoryStatus? status,
     Story? initialStory,
     String? id,
-    List<String>? tags,
+    // List<String>? tags,
     String? newTag,
   }) {
     return EditStoryState(
       status: status ?? this.status,
       initialStory: initialStory ?? this.initialStory,
       id: id ?? this.id,
-      tags: tags ?? this.tags,
+      // tags: tags ?? this.tags,
       newTag: newTag ?? this.newTag,
     );
   }
 
   @override
-  List<Object?> get props => [status, initialStory, id, tags, newTag];
+  List<Object?> get props => [status, initialStory, id, newTag];
 }

@@ -24,7 +24,11 @@ class EditStoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const EditStoryView();
+    return BlocBuilder<EditStoryBloc, EditStoryState>(
+      builder: (context, state) {
+        return const EditStoryView();
+      },
+    );
   }
 }
 

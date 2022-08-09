@@ -41,7 +41,7 @@ class EditStoryBloc extends Bloc<EditStoryEvent, EditStoryState> {
 
     try {
       await _storiesRepository.saveStory(story);
-      emit(state.copyWith(status: EditStoryStatus.success));
+      emit(state.copyWith(status: EditStoryStatus.success, initialStory: story));
     } catch (e) {
       emit(state.copyWith(status: EditStoryStatus.failure));
     }

@@ -24,13 +24,7 @@ class EditStoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<EditStoryBloc, EditStoryState>(
-      listenWhen: (previous, current) =>
-          previous.status != current.status &&
-          current.status == EditStoryStatus.success,
-      listener: (context, state) => Navigator.of(context).pop(),
-      child: const EditStoryView(),
-    );
+    return const EditStoryView();
   }
 }
 
@@ -41,10 +35,8 @@ class EditStoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    final status = context.select((EditStoryBloc bloc) => bloc.state.status);
-    final isNewStory = context.select(
-      (EditStoryBloc bloc) => bloc.state.isNewStory,
-    );
+    final state = context.watch<EditStoryBloc>().state;
+
     final theme = Theme.of(context);
     final floatingActionButtonTheme = theme.floatingActionButtonTheme;
     final fabBackgroundColor = floatingActionButtonTheme.backgroundColor ??
@@ -61,58 +53,59 @@ class EditStoryView extends StatelessWidget {
         shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(32)),
         ),
-        backgroundColor: status.isLoadingOrSuccess
-            ? fabBackgroundColor.withOpacity(0.5)
-            : fabBackgroundColor,
-        onPressed: status.isLoadingOrSuccess
-            ? null
-            : () =>
-                context.read<EditStoryBloc>().add(const EditStorySubmitted()),
-        child: status.isLoadingOrSuccess
-            ? const CupertinoActivityIndicator()
-            : const Icon(Icons.check_rounded),
+        backgroundColor: fabBackgroundColor,
+        onPressed: () {
+          showDialog<String>(
+            context: context,
+            builder: (_) => SimpleDialog(
+              title: const Text('Add new tag'),
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: TextFormField(
+                    onChanged: (value) {
+                      context.read<EditStoryBloc>().add(
+                            EditStoryTagAdded(value),
+                          );
+                    },
+                  ),
+                ),
+                TextButton(
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                  ),
+                  onPressed: () {
+                    context
+                        .read<EditStoryBloc>()
+                        .add(const EditStorySubmitted());
+                    Navigator.pop(_);
+                  },
+                  child: const Text('Add Tag'),
+                ),
+              ],
+            ),
+          );
+        },
+        child: const Icon(Icons.add),
       ),
       body: CupertinoScrollbar(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
-              children: const [_TagsList()],
+              children: [
+                Text(state.initialStory!.id!),
+                if (state.initialStory!.tags.isNotEmpty)
+                  for (final tag in state.initialStory!.tags)
+                    ListTile(
+                      title: Text(tag),
+                    ),
+              ],
             ),
           ),
         ),
       ),
     );
-  }
-}
-
-class _TagsList extends StatelessWidget {
-  const _TagsList({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-
-    final state = context.watch<EditStoryBloc>().state;
-    final hintText = state.initialStory?.tags ?? '';
-    return Text(state.initialStory!.id!);
-
-    // return TextFormField(
-    //   key: const Key('editStoryView_tags_textFormList'),
-    //   initialValue: state.tags,
-    //   decoration: InputDecoration(
-    //     enabled: !state.status.isLoadingOrSuccess,
-    //     labelText: l10n.editStoryTagsLabel,
-    //     hintText: hintText,
-    //   ),
-    //   maxLength: 300,
-    //   maxLines: 7,
-    //   inputFormatters: [
-    //     LengthLimitingTextInputFormatter(300),
-    //   ],
-    //   onChanged: (value) {
-    //     context.read<EditStoryBloc>().add(EditStoryTagsChanged(value));
-    //   },
-    // );
   }
 }

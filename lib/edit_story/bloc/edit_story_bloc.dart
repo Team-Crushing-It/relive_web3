@@ -17,35 +17,33 @@ class EditStoryBloc extends Bloc<EditStoryEvent, EditStoryState> {
             tags: initialStory?.tags ?? [],
           ),
         ) {
-    on<EditStoryTagsChanged>(_onTagsChanged);
+    on<EditStoryTagAdded>(_onTagAdded);
     on<EditStorySubmitted>(_onSubmitted);
   }
 
   final StoriesRepository _storiesRepository;
 
-
-  void _onTagsChanged(
-    EditStoryTagsChanged event,
+  void _onTagAdded(
+    EditStoryTagAdded event,
     Emitter<EditStoryState> emit,
   ) {
-    emit(state.copyWith(tags: event.tags));
+    emit(state.copyWith(newTag: event.tag));
   }
 
   Future<void> _onSubmitted(
     EditStorySubmitted event,
     Emitter<EditStoryState> emit,
   ) async {
-    // emit(state.copyWith(status: EditStoryStatus.loading));
-    // final story = (state.initialStory ?? Story(title: '')).copyWith(
-    //   title: state.title,
-    //   description: state.description,
-    // );
+    emit(state.copyWith(status: EditStoryStatus.loading));
+    final outputTags = state.initialStory!.tags.map((e) => e).toList();
+    outputTags.add(state.newTag);
+    final story = state.initialStory!.copyWith(tags: outputTags);
 
-    // try {
-    //   await _storiesRepository.saveStory(story);
-    //   emit(state.copyWith(status: EditStoryStatus.success));
-    // } catch (e) {
-    //   emit(state.copyWith(status: EditStoryStatus.failure));
-    // }
+    try {
+      await _storiesRepository.saveStory(story);
+      emit(state.copyWith(status: EditStoryStatus.success));
+    } catch (e) {
+      emit(state.copyWith(status: EditStoryStatus.failure));
+    }
   }
 }

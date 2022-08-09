@@ -38,7 +38,7 @@ class StoriesOverviewView extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.read<HomeCubit>().setPage(CurrentHomePage.capture);
+          context.read<HomeCubit>().setPage(CurrentHomePage.tell);
         },
         backgroundColor: Colors.blue,
         child: const Icon(Icons.add),
@@ -49,7 +49,7 @@ class StoriesOverviewView extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.ac_unit),
             onPressed: () => {
-              context.read<HomeCubit>().setPage(CurrentHomePage.tell)
+              context.read<HomeCubit>().setPage(CurrentHomePage.capture)
             },
           ),
         ],

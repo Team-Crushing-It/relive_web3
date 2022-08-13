@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "storiesOverviewAppBarTitle": "Flutter Stories",
+  "storiesOverviewAppBarTitle": "Overview",
   "@storiesOverviewAppBarTitle": {
     "description": "Title text shown in the AppBar of the Stories Overview Page"
   },

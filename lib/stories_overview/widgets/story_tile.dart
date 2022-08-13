@@ -18,9 +18,24 @@ class StoryTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Container(
-            color: Colors.black, child: const SizedBox(height: 50, width: 50)),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 3,
+                blurRadius: 3,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          height: 50,
+          width: 50,
+          child: Center(child: Text(story.id!, textAlign: TextAlign.center)),
+        ),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:relive_web3/edit_story/view/edit_story_page.dart';
 import 'package:relive_web3/home/home.dart';
 import 'package:relive_web3/l10n/l10n.dart';
 import 'package:relive_web3/stories_overview/stories_overview.dart';
+import 'package:relive_web3/stories_overview/widgets/custom_app_bar.dart';
 import 'package:stories_repository/stories_repository.dart';
 
 class StoriesOverviewPage extends StatelessWidget {
@@ -35,6 +36,7 @@ class StoriesOverviewView extends StatelessWidget {
     final l10n = context.l10n;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -43,14 +45,22 @@ class StoriesOverviewView extends StatelessWidget {
         backgroundColor: Colors.blue,
         child: const Icon(Icons.add),
       ),
-      appBar: AppBar(
-        title: Text(l10n.storiesOverviewAppBarTitle),
-        actions: [
+      appBar: CustomAppBar(
+        children: [
           IconButton(
             icon: const Icon(Icons.ac_unit),
-            onPressed: () => {
-              context.read<HomeCubit>().setPage(CurrentHomePage.capture)
-            },
+            onPressed: () =>
+                {context.read<HomeCubit>().setPage(CurrentHomePage.capture)},
+          ),
+          IconButton(
+            icon: const Icon(Icons.ac_unit),
+            onPressed: () =>
+                {context.read<HomeCubit>().setPage(CurrentHomePage.capture)},
+          ),
+          IconButton(
+            icon: const Icon(Icons.ac_unit),
+            onPressed: () =>
+                {context.read<HomeCubit>().setPage(CurrentHomePage.capture)},
           ),
         ],
       ),

@@ -61,7 +61,7 @@ class EditStoryView extends StatelessWidget {
         onPressed: () {
           showDialog<String>(
             context: context,
-            builder: (_) => SimpleDialog(
+            builder: (context2) => SimpleDialog(
               title: const Text('Add new tag'),
               children: <Widget>[
                 Padding(
@@ -83,7 +83,7 @@ class EditStoryView extends StatelessWidget {
                     context
                         .read<EditStoryBloc>()
                         .add(const EditStorySubmitted());
-                    Navigator.pop(_);
+                    Navigator.pop(context2);
                   },
                   child: const Text('Add Tag'),
                 ),

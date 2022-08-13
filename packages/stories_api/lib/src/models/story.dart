@@ -14,13 +14,13 @@ part 'story.g.dart';
 @immutable
 @JsonSerializable(explicitToJson: true)
 class Story extends Equatable {
-  factory Story.fromJson(Map<String, dynamic> json) => _$StoryFromJson(json);
 
   const Story({
     this.id,
     this.tags = const [],
     this.filePath = '',
   });
+  factory Story.fromJson(Map<String, dynamic> json) => _$StoryFromJson(json);
   final String? id;
   final List<String> tags;
   final String? filePath;

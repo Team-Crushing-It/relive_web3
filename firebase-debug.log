@@ -1,0 +1,33 @@
+[debug] [2022-08-13T16:18:09.691Z] ----------------------------------------------------------------------
+[debug] [2022-08-13T16:18:09.692Z] Command:       /opt/homebrew/Cellar/node/18.6.0/bin/node /opt/homebrew/bin/firebase apps:create ios relive_web3 (ios) --bundle-id=com.tci.relive_web3 --json --project=relive-web3
+[debug] [2022-08-13T16:18:09.692Z] CLI Version:   10.9.2
+[debug] [2022-08-13T16:18:09.692Z] Platform:      darwin
+[debug] [2022-08-13T16:18:09.692Z] Node Version:  v18.6.0
+[debug] [2022-08-13T16:18:09.693Z] Time:          Sat Aug 13 2022 12:18:09 GMT-0400 (Eastern Daylight Time)
+[debug] [2022-08-13T16:18:09.693Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-08-13T16:18:09.696Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-08-13T16:18:09.696Z] > authorizing via signed-in user (every1isvaluable@gmail.com)
+[info] Create your IOS app in project relive-web3:
+[debug] [2022-08-13T16:18:09.698Z] >>> HTTP REQUEST POST https://firebase.googleapis.com/v1beta1/projects/relive-web3/iosApps  
+ {"displayName":"relive_web3 (ios)","bundleId":"com.tci.relive_web3"}
+[debug] [2022-08-13T16:18:09.887Z] <<< HTTP RESPONSE 400 {"vary":"X-Origin, Referer, Origin,Accept-Encoding","content-type":"application/json; charset=UTF-8","date":"Sat, 13 Aug 2022 16:18:09 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-08-13T16:18:09.887Z] <<< HTTP RESPONSE BODY {"error":{"code":400,"message":"Request contains an invalid argument.","status":"INVALID_ARGUMENT"}}
+[debug] [2022-08-13T16:18:09.888Z] HTTP Error: 400, Request contains an invalid argument.
+[debug] [2022-08-13T16:18:09.933Z] FirebaseError: HTTP Error: 400, Request contains an invalid argument.
+    at module.exports (/opt/homebrew/lib/node_modules/firebase-tools/lib/responseToError.js:47:12)
+    at Request._callback (/opt/homebrew/lib/node_modules/firebase-tools/lib/api.js:41:35)
+    at self.callback (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/request/request.js:185:22)
+    at Request.emit (node:events:513:28)
+    at Request.emit (node:domain:482:12)
+    at Request.<anonymous> (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/request/request.js:1154:10)
+    at Request.emit (node:events:513:28)
+    at Request.emit (node:domain:482:12)
+    at IncomingMessage.<anonymous> (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (node:events:627:28)
+    at IncomingMessage.emit (node:events:525:35)
+    at IncomingMessage.emit (node:domain:482:12)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+[error] 
+[error] Error: Failed to create iOS app for project relive-web3. See firebase-debug.log for more info.

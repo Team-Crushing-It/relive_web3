@@ -29,6 +29,49 @@
             {
               "client_id": "713602982924-dlj8gepkg72d4vfo5iue6o7gfk1eh2kc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "713602982924-553703l0edfr94ro3m8cgunju367e3j8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.l2t.relive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713602982924:android:67a1bf9657dd67f0a0ba29",
+        "android_client_info": {
+          "package_name": "com.example.verygoodcore.relive_web3.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713602982924-dlj8gepkg72d4vfo5iue6o7gfk1eh2kc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_JS3Plbx7a2c7NN8B11AgJdWM67FFRtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713602982924-dlj8gepkg72d4vfo5iue6o7gfk1eh2kc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "713602982924-553703l0edfr94ro3m8cgunju367e3j8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.l2t.relive"
+              }
             }
           ]
         }

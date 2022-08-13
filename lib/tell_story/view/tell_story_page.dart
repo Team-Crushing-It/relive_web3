@@ -1,17 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:relive_web3/home/home.dart';
+import 'package:relive_web3/l10n/l10n.dart';
 import 'package:relive_web3/tell_story/tell_story.dart';
-import 'package:storytelling_repository/storytelling_repository.dart';
-
+import 'package:stories_repository/stories_repository.dart';
 
 class TellStoryPage extends StatelessWidget {
-  const TellStoryPage({Key? key}) : super(key: key);
+  const TellStoryPage._();
 
+  static Page page() => const MaterialPage<void>(
+        key: ValueKey('capture_oveview_page'),
+        child: TellStoryPage._(),
+      );
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
-      appBar: AppBar(title: const Text('Test'), centerTitle: true),
+      appBar: AppBar(
+        title: Text(l10n.storiesOverviewAppBarTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.ac_unit),
+            onPressed: () =>
+                {context.read<HomeCubit>().setPage(CurrentHomePage.overview)},
+          ),
+        ],
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
@@ -25,7 +40,7 @@ class TellStoryPage extends StatelessWidget {
                   padding: const EdgeInsets.all(36),
                   child: BlocProvider(
                     create: (_) =>
-                        TellStoryCubit(context.read<StorytellingRepository>()),
+                        TellStoryCubit(context.read<StoriesRepository>()),
                     child: const TellStoryView(),
                   ),
                 ),
@@ -46,4 +61,3 @@ class TellStoryView extends StatelessWidget {
     return Container();
   }
 }
-

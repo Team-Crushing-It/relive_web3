@@ -1,32 +1,48 @@
-// Copyright (c) 2022, Very Good Ventures
-// https://verygood.ventures
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
-
+import 'package:authentication_repository/authentication_repository.dart';
+import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:relive_web3/counter/counter.dart';
-import 'package:relive_web3/home/home.dart';
+import 'package:relive_web3/app/bloc/app_bloc.dart';
+import 'package:relive_web3/home/view/home_page.dart';
 import 'package:relive_web3/l10n/l10n.dart';
-import 'package:storytelling_repository/storytelling_repository.dart';
+import 'package:relive_web3/login/login.dart';
+import 'package:relive_web3/stories_overview/stories_overview.dart';
+import 'package:stories_repository/stories_repository.dart';
+
+List<Page> onGenerateAppViewPages(AppStatus state, List<Page<dynamic>> pages) {
+  switch (state) {
+    case AppStatus.authenticated:
+      return [HomePage.page()];
+    case AppStatus.unauthenticated:
+      return [LoginPage.page()];
+  }
+}
 
 class App extends StatelessWidget {
   const App({
     Key? key,
-    required StorytellingRepository storytellingRepository,
-  })  : _storytellingRepository = storytellingRepository,
+    required StoriesRepository storiesRepository,
+    required AuthenticationRepository authenticationRepository,
+  })  : _storiesRepository = storiesRepository,
+        _authenticationRepository = authenticationRepository,
         super(key: key);
 
-  final StorytellingRepository _storytellingRepository;
+  final StoriesRepository _storiesRepository;
+  final AuthenticationRepository _authenticationRepository;
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: _storytellingRepository,
-      child: const AppView(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(value: _authenticationRepository),
+        RepositoryProvider.value(value: _storiesRepository),
+      ],
+      child: BlocProvider(
+        create: (_) => AppBloc(
+          authenticationRepository: _authenticationRepository,
+        ),
+        child: const AppView(),
+      ),
     );
   }
 }
@@ -43,12 +59,14 @@ class AppView extends StatelessWidget {
           accentColor: const Color(0xFF13B9FF),
         ),
       ),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-      ],
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const HomePage(),
+      home: FlowBuilder(
+        onGeneratePages: onGenerateAppViewPages,
+        state: context.select<AppBloc, AppStatus>(
+          (bloc) => bloc.state.status,
+        ),
+      ),
     );
   }
 }

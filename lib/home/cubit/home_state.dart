@@ -1,22 +1,14 @@
 part of 'home_cubit.dart';
 
+enum CurrentHomePage { capture, overview, tell }
+
 class HomeState extends Equatable {
   const HomeState({
-    this.message = 'inital',
+    this.page = CurrentHomePage.capture,
   });
 
-  final String message;
+  final CurrentHomePage page;
 
   @override
-  List<Object> get props => [message];
-
-  HomeState copyWith({
-    String? message,
-  }) {
-    return HomeState(
-      message: message ?? this.message,
-    );
-  }
+  List<Object> get props => [page];
 }
-
-// class HomeInitial extends HomeState {}

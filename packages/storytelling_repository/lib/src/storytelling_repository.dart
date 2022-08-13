@@ -41,7 +41,7 @@ class StorytellingRepository {
       });
 
     await FFmpegKit.execute(
-            '-i ${output.path} -c:v mpeg4 ${appDir.path}/test4.mp4')
+            '-i ${output.path} -c:v mpeg4 ${appDir.path}/test5.mp4')
         .then((session) async {
       returnCode = await session.getReturnCode();
 
@@ -60,5 +60,16 @@ class StorytellingRepository {
       }
     });
     return returnCode.toString();
+  }
+
+  Future<List<String>> getVids() async {
+    final appDir = await getApplicationDocumentsDirectory();
+
+    final output = await appDir
+        .list()
+        .map((element) => element.path.split('/').last)
+        .toList();
+
+    return output;
   }
 }

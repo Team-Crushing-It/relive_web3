@@ -1,6 +1,8 @@
-// ignore_for_file: public_member_api_docs
+// ignore_for_filePath: public_member_api_docs
 
-import 'dart:io';
+// ignore_for_file: public_member_api_docs, type_annotate_public_apis
+
+// import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 
@@ -12,25 +14,26 @@ part 'story.g.dart';
 @immutable
 @JsonSerializable(explicitToJson: true)
 class Story extends Equatable {
-  final String? id;
-  final List<String> tags;
-  // final File? file;
+  factory Story.fromJson(Map<String, dynamic> json) => _$StoryFromJson(json);
 
   const Story({
     this.id,
     this.tags = const [],
-    // this.file,
+    this.filePath = '',
   });
+  final String? id;
+  final List<String> tags;
+  final String? filePath;
 
   Story copyWith({
     String? id,
     List<String>? tags,
-    // File? file,
+    String? filePath,
   }) {
     return Story(
       id: id ?? this.id,
       tags: tags ?? this.tags,
-      // file: file ?? this.file,
+      filePath: filePath ?? this.filePath,
     );
   }
 
@@ -40,10 +43,8 @@ class Story extends Equatable {
   }
 
   /// Empty Story which represents an empty story.
-  static var empty = Story(
+  static var empty = const Story(
     id: '',
-    tags: [],
-    // file: File('empty'),
   );
 
   /// Convenience getter to determine whether the story is empty.
@@ -53,12 +54,7 @@ class Story extends Equatable {
   bool get isNotEmpty => this != Story.empty;
 
   @override
-  List<Object?> get props => [
-        id,
-        tags,
-      ];
-
-  factory Story.fromJson(Map<String, dynamic> json) => _$StoryFromJson(json);
+  List<Object?> get props => [id, tags, filePath];
 
   Map<String, dynamic> toJson() => _$StoryToJson(this);
 }

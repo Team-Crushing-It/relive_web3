@@ -12,9 +12,11 @@ Story _$StoryFromJson(Map<String, dynamic> json) => Story(
               ?.map((dynamic e) => e as String)
               .toList() ??
           const [],
+      filePath: json['filePath'] as String? ?? '',
     );
 
 Map<String, dynamic> _$StoryToJson(Story instance) => <String, dynamic>{
       'id': instance.id,
       'tags': instance.tags,
+      'filePath': instance.filePath,
     };

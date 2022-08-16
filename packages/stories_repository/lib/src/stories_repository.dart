@@ -3,7 +3,7 @@ import 'package:stories_api/stories_api.dart';
 /// {@template stories_repository}
 /// A repository that handles story related requests.
 /// {@endtemplate}
-class StoriesRepository {
+class StoriesRepository { 
   /// {@macro stories_repository}
   const StoriesRepository({
     required StoriesApi storiesApi,

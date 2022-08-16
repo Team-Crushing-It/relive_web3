@@ -9,4 +9,10 @@ class CaptureStoryCubit extends Cubit<CaptureStoryState> {
 
   final StoriesRepository _repository;
 
+  void saveStory(String path) {
+    print(path);
+    Story story = Story(filePath: path, tags: ["bra"]);
+    _repository.saveStory(story);
+    emit(state.copyWith(message: "added a story"));
+  }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:stories_repository/stories_repository.dart';
 
@@ -21,6 +23,10 @@ class StoryTile extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: Container(
           decoration: BoxDecoration(
+          image: DecorationImage(
+                  image: FileImage(File(story.filePath!)),
+                  fit: BoxFit.contain,
+                ),
             color: Colors.white,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             boxShadow: [
@@ -34,7 +40,7 @@ class StoryTile extends StatelessWidget {
           ),
           height: 50,
           width: 50,
-          child: Center(child: Text(story.id!, textAlign: TextAlign.center)),
+          
         ),
       ),
     );

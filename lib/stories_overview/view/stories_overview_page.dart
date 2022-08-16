@@ -138,6 +138,7 @@ class StoriesOverviewView extends StatelessWidget {
                     StoryTile(
                       story: story,
                       onTap: () {
+                        print(state.filteredStories);
                         print('tapped');
                         Navigator.of(context).push(
                           EditStoryPage.route(initialStory: story),

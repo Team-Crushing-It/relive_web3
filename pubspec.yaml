@@ -21,9 +21,11 @@ dependencies:
   form_inputs:
     path: packages/form_inputs 
   google_fonts: ^3.0.1
+  image_picker: ^0.8.5+3
   intl: ^0.17.0
   local_storage_stories_api:
     path: packages/local_storage_stories_api
+  path: ^1.8.1
   path_provider: ^2.0.11
   stories_api:
     path: packages/stories_api

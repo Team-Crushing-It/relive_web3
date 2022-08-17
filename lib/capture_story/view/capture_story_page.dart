@@ -5,10 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:relive_web3/app/app.dart';
-import 'package:path/path.dart' as Path;
+import 'package:path/path.dart' as path;
 import 'package:relive_web3/capture_story/capture_story.dart';
+import 'package:relive_web3/capture_story/helper/file_picker.dart';
 import 'package:relive_web3/home/home.dart';
 import 'package:stories_repository/stories_repository.dart';
+import 'package:chewie/chewie.dart';
+import 'package:video_player/video_player.dart';
 
 class CaptureStoryPage extends StatelessWidget {
   const CaptureStoryPage._();
@@ -67,54 +70,80 @@ class CaptureStoryView extends StatefulWidget {
 }
 
 class _CaptureStoryViewState extends State<CaptureStoryView> {
+  VideoPlayerController? videoPlayerController;
+  ChewieController? chewieController;
+
   XFile? file;
+  Future<Widget> playVideo() async {  
+    videoPlayerController = VideoPlayerController.file(File(file!.path));
+    await videoPlayerController!.initialize();
+
+    final chewieController = ChewieController(
+        videoPlayerController: videoPlayerController!,
+        autoPlay: true,
+        allowFullScreen: false  );
+    final Widget playerWidget = Chewie(
+      controller: chewieController,
+    );
+    return playerWidget;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.zero,
-        decoration: file == null
-            ? null
-            : BoxDecoration(
-                image: DecorationImage(
-                  image: FileImage(File(file!.path)),
-                  fit: BoxFit.cover,
-                ),
+      body: file == null
+          ? const Center(
+              child: Text(
+                "Capture your story !",
+                style: TextStyle(fontSize: 30),
               ),
-        child: file == null
-            ? const Center(
-                child: Text(
-                  "Capture a video !",
-                  style: TextStyle(fontSize: 30),
-                ),
-              )
-            : null /* add child content here */,
-      ),
+            )
+          : path.extension(file!.path) == ".jpg"
+              ? Container(
+                  margin: EdgeInsets.zero,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: FileImage(File(file!.path)),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  /* add child content here */
+                )
+              : FutureBuilder(
+                  future: playVideo(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return snapshot.data as Widget;
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 30),
-        child: FloatingActionButton(
-          child: Image.asset('assets/camera.png'),
-          backgroundColor: Colors.white.withOpacity(0.5),
-          onPressed: () async {
-            final _picker = ImagePicker();
-            final photo = await _picker.pickImage(source: ImageSource.camera);
-            File imageFile = File(photo!.path);
-
-            if (photo != null) {
-              final appDocDir = await getApplicationDocumentsDirectory();
-              print(appDocDir.path);
-              final appDocPath = appDocDir.path;
-              final fileName = Path.basename(imageFile.path);
-              final localImage = await imageFile.copy('$appDocPath/$fileName');
-              print(localImage.path);
+        child: InkWell(
+          onLongPress: () async {
+            XFile? video = await FilePicker.pickVideo();
+            if (video != null)
               setState(() {
-                file = photo;
-                context.read<CaptureStoryCubit>().saveStory(photo.path);
+                file = video;
+                context.read<CaptureStoryCubit>().saveStory(video.path);
               });
-            }
           },
+          child: FloatingActionButton(
+            child: Image.asset('assets/camera.png'),
+            backgroundColor: Colors.white.withOpacity(0.5),
+            onPressed: () async {
+              XFile? photo = await FilePicker.pickImage();
+              if (photo != null)
+                setState(() {
+                  file = photo;
+                  context.read<CaptureStoryCubit>().saveStory(photo.path);
+                });
+            },
+          ),
         ),
       ),
     );

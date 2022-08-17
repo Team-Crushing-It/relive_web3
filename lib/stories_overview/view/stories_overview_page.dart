@@ -131,7 +131,7 @@ class StoriesOverviewView extends StatelessWidget {
             return CupertinoScrollbar(
               child: GridView(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                  crossAxisCount: 2,
                 ),
                 children: [
                   for (final story in state.filteredStories)

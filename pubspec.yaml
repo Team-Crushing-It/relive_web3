@@ -10,6 +10,7 @@ dependencies:
   authentication_repository:
     path: packages/authentication_repository
   bloc: ^8.0.3
+  chewie: ^1.3.4
   equatable: ^2.0.3
   flow_builder: ^0.0.9
   flutter:
@@ -21,14 +22,17 @@ dependencies:
   form_inputs:
     path: packages/form_inputs 
   google_fonts: ^3.0.1
+  image_picker: ^0.8.5+3
   intl: ^0.17.0
   local_storage_stories_api:
     path: packages/local_storage_stories_api
+  path: ^1.8.1
   path_provider: ^2.0.11
   stories_api:
     path: packages/stories_api
   stories_repository:
     path: packages/stories_repository
+  video_player: ^2.4.6
 
 
 dev_dependencies:

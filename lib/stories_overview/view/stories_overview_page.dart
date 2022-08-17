@@ -36,29 +36,27 @@ class StoriesOverviewView extends StatelessWidget {
     final l10n = context.l10n;
 
     return Scaffold(
+      backgroundColor: const Color(0xffF2F2F2),
       extendBodyBehindAppBar: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           context.read<HomeCubit>().setPage(CurrentHomePage.tell);
         },
-        backgroundColor: Colors.blue,
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        child: Image.asset('assets/logo_icon.png'),
       ),
       appBar: CustomAppBar(
         children: [
           IconButton(
-            icon: const Icon(Icons.ac_unit),
+            icon: const Icon(Icons.person),
             onPressed: () =>
                 {context.read<HomeCubit>().setPage(CurrentHomePage.capture)},
           ),
+          FakeSearchBar(),
           IconButton(
-            icon: const Icon(Icons.ac_unit),
-            onPressed: () =>
-                {context.read<HomeCubit>().setPage(CurrentHomePage.capture)},
-          ),
-          IconButton(
-            icon: const Icon(Icons.ac_unit),
+            icon: const Icon(Icons.camera_alt),
             onPressed: () =>
                 {context.read<HomeCubit>().setPage(CurrentHomePage.capture)},
           ),
@@ -131,13 +129,14 @@ class StoriesOverviewView extends StatelessWidget {
             return CupertinoScrollbar(
               child: GridView(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                  crossAxisCount: 2,
                 ),
                 children: [
                   for (final story in state.filteredStories)
                     StoryTile(
                       story: story,
                       onTap: () {
+                        print(state.filteredStories);
                         print('tapped');
                         Navigator.of(context).push(
                           EditStoryPage.route(initialStory: story),

@@ -4,7 +4,7 @@ enum CurrentHomePage { capture, overview, tell }
 
 class HomeState extends Equatable {
   const HomeState({
-    this.page = CurrentHomePage.capture,
+    this.page = CurrentHomePage.overview,
   });
 
   final CurrentHomePage page;
